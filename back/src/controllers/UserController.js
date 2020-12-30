@@ -140,14 +140,24 @@ class UserController {
             const {id} = req.params;
             const invitation = await Invitation.findById({_id:id});
             const {inviter, invitee} = invitation;
+            console.log("Here")
 
-            const userInviter = await User.findOne({_id:inviter});
-            const userInvitee = await User.findOne({_id:invitee});
-            userInviter.contacts.push(invitee);
-            userInvitee.contacts.push(inviter);
+            let userInviter = await User.findById({_id:inviter});
+            let userInvitee = await User.findById({_id:invitee});
+            console.log(userInvitee);
+            console.log(userInvitee._id);
+            console.log("pic " + userInvitee.profile_picture);
+
+            let inviterName = userInviter.first_name + " " + userInviter.last_name;
+            let inviteeName = userInvitee.first_name + " " + userInvitee.last_name;
+
+            userInviter.contacts.push({_id:invitee._id, name: (userInvitee.first_name + " " + userInvitee.last_name), profile_picture:invitee.profile_picture});
+            userInvitee.contacts.push({_id:inviter._id, name: (userInviter.first_name + " " + userInviter.last_name), profile_picture:inviter.profile_picture});
+            console.log("userInvitee.first_name");
             await userInvitee.save();
             await userInviter.save();
             await Invitation.findByIdAndRemove(id);
+            console.log("TESTES");
 
             return res.status(200).json("You have a new friend!");
         } catch (error) {
