@@ -113,7 +113,7 @@ class UserController {
         }
     }
 
-    async deleteInvite(req, res){
+    async cancelInvite(req, res){
         try{
             const {id} = req.params;
             await Invitation.findByIdAndRemove(id);
@@ -145,11 +145,39 @@ class UserController {
             const userInvitee = await User.findOne({_id:invitee});
             userInviter.contacts.push(invitee);
             userInvitee.contacts.push(inviter);
-            userInvitee.save();
-            userInviter.save();
+            await userInvitee.save();
+            await userInviter.save();
             await Invitation.findByIdAndRemove(id);
 
             return res.status(200).json("You have a new friend!");
+        } catch (error) {
+            return res.status(401).json({error: "Something it's wrong, try again!"});
+        }
+    }
+
+    async brokenFriendship(req, res){
+        try{
+            const { ids } = req.params;
+
+            let arrayIds = ids.split('+');
+            const userId = arrayIds[0]
+            const contactId = arrayIds[1]
+
+            const user = await User.findOne({_id:userId});
+            const contact = await User.findOne({_id:contactId});
+  
+            let userIndex = user.contacts.indexOf(contactId);
+            user.contacts.splice(userIndex, 1);
+            
+            let contactIndex = contact.contacts.indexOf(userId);
+            contact.contacts.splice(contactIndex, 1);
+
+            console.log(user);
+
+            user.save();
+            contact.save();
+
+            return res.status(200).json("broken friendship!");
         } catch (error) {
             return res.status(401).json({error: "Something it's wrong, try again!"});
         }
