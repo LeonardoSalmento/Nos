@@ -193,6 +193,18 @@ class UserController {
         }
     }
 
+    async showAllFriends(req, res){
+        try{
+            const { id } = req.params;
+
+            const user = await User.findById({_id:id});
+
+            return res.status(200).json(user.contacts);
+        } catch (error) {
+            return res.status(401).json({error: "Something it's wrong, try again!"});
+        }
+    }
+
 }
 
 export default UserController;

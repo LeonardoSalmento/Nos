@@ -21,4 +21,6 @@ routes.delete('/friendship-invites/:id/refuse', authMiddleware, userController.r
 routes.delete('/friendship-invites/:id/confirm', authMiddleware, userController.confirmInvite);
 routes.post('/broken-friendship/:ids', authMiddleware, userController.brokenFriendship);
 
+routes.get('/show-friends/:id', authMiddleware, userController.showAllFriends);
+
 export default routes;
