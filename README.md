@@ -4,5 +4,6 @@ Social network developed for the purpose of training and learning new developmen
 
 
 ### Backend
-Nodejs
-MongoDB
+* Nodejs
+
+* MongoDB
