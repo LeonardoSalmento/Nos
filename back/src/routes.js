@@ -14,5 +14,10 @@ routes.get('/users', userController.index);
 routes.get('/users/:id', userController.show);
 routes.post('/users', userController.create);
 
+routes.post('/friendship-invites/:ids', authMiddleware, userController.sendInvite);
+routes.get('/friendship-invites/', authMiddleware, userController.seeInvites);
+routes.delete('/friendship-invites/:id/delete', authMiddleware, userController.deleteInvite);
+routes.delete('/friendship-invites/:id/refuse', authMiddleware, userController.refuseInvite);
+routes.delete('/friendship-invites/:id/confirm', authMiddleware, userController.confirmInvite);
 
 export default routes;
