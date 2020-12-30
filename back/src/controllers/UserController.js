@@ -80,9 +80,14 @@ class UserController {
             }
             const userInviter = await User.findOne({_id:inviterId});
 
-            
             if(userInviter.contacts.includes(inviteeId)){
                 return res.status(400).json({ error: 'You are already friend with that person' });
+            }
+
+            for (let i=0; i<userInviter.contacts.length;i++){
+                if (String(userInviter.contacts[i]._id)===String(inviteeId)){
+                    return res.status(400).json({ error: 'You are already friend with that person' });
+                }
             }
 
             invitation = await Invitation.create({
