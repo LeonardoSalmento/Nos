@@ -25,5 +25,6 @@ routes.get('/show-friends/:id', authMiddleware, userController.showAllFriends);
 
 routes.post('/block/:ids', authMiddleware, userController.block);
 routes.post('/unblock/:ids', authMiddleware, userController.unblock);
+routes.get('/block/:id', authMiddleware, userController.showAllBlocks);
 
 export default routes;

@@ -259,6 +259,19 @@ class UserController {
         }
     }
 
+
+    async showAllBlocks(req, res){
+        try{
+            const { id } = req.params;
+
+            const user = await User.findById({_id:id});
+
+            return res.status(200).json(user.blocked_contacts);
+        } catch (error) {
+            return res.status(400).json({error: "Something it's wrong, try again!"});
+        }
+    }
+
 }
 
 export default UserController;
