@@ -100,10 +100,10 @@ class UserController {
 
 
       async delete(req, res) {
-        const { productId } = req.params;
+        const { id } = req.params;
 
         try{
-            await Product.findByIdAndDelete(productId);
+            await User.findByIdAndDelete(id);
             return res.json({ message: 'Product exclude successful' });
 
         }catch(err){
