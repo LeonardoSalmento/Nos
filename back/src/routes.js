@@ -13,6 +13,7 @@ routes.post('/auth', authController.authenticate);
 routes.get('/users', userController.index);
 routes.get('/users/:id', userController.show);
 routes.post('/users', userController.create);
+routes.put('/users/:id', userController.update);
 
 routes.post('/friendship-invites/:ids', authMiddleware, userController.sendInvite);
 routes.get('/friendship-invites/', authMiddleware, userController.seeInvites);

@@ -65,6 +65,53 @@ class UserController {
 
     }
 
+    async update(req, res) {
+        const { id } = req.params;
+        const {
+            first_name,
+            last_name,
+            phone,
+            email,
+            profile_picture,
+        } = req.body;
+        
+        const user = await User.findById(id);
+        
+        if(!user){
+            return res.status(404).json({error: "User not found!"})
+        }
+
+        const updated = Date.now();
+        
+        const userUpdated = await User.updateOne(
+          { _id: id },
+          {
+            first_name,
+            last_name,
+            phone,
+            email,
+            profile_picture,
+            updated,
+          }
+        );
+    
+        return res.send(userUpdated);
+      }
+
+
+      async delete(req, res) {
+        const { productId } = req.params;
+
+        try{
+            await Product.findByIdAndDelete(productId);
+            return res.json({ message: 'Product exclude successful' });
+
+        }catch(err){
+            return res.status(400).json({ message: err });
+
+        }
+      }
+
     async sendInvite(req, res){
         try{
             const { ids } = req.params;
