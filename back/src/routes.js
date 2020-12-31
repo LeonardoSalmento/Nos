@@ -23,4 +23,7 @@ routes.post('/broken-friendship/:ids', authMiddleware, userController.brokenFrie
 
 routes.get('/show-friends/:id', authMiddleware, userController.showAllFriends);
 
+routes.post('/block/:ids', authMiddleware, userController.block);
+routes.post('/unblock/:ids', authMiddleware, userController.unblock);
+
 export default routes;
