@@ -5,7 +5,7 @@ class PostController{
     async create(req, res){
         try {
             const { userId, text, picture } = req.body;
-            const likes = []
+            const likes = [];
             const created = new Date();
             const updated = new Date();
 

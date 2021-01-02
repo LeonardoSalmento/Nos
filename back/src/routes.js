@@ -2,6 +2,7 @@ import { Router } from 'express';
 import UserController from './controllers/UserController';
 import AuthController from './controllers/AuthController';
 import PostController from './controllers/PostController';
+import CommentController from './controllers/CommentController';
 import authMiddleware from './middlewares/authMiddleware';
 
 const routes = Router();
@@ -9,6 +10,7 @@ const routes = Router();
 const userController = new UserController();
 const authController = new AuthController();
 const postController = new PostController();
+const commentController = new CommentController();
 
 routes.post('/auth', authController.authenticate);
 
@@ -35,5 +37,8 @@ routes.get('/posts/:id', authMiddleware, postController.show);
 routes.delete('/posts/:id', authMiddleware, postController.delete);
 routes.put('/posts/:id', authMiddleware, postController.update);
 routes.get('/my-posts/:id', authMiddleware, postController.showMyPosts);
+
+routes.post('/comments', authMiddleware, commentController.create);
+routes.get('/comments/:postId', authMiddleware, commentController.showCommentsPost);
 
 export default routes;
