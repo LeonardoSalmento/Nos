@@ -31,6 +31,7 @@ routes.post('/unblock/:ids', authMiddleware, userController.unblock);
 routes.get('/block/:id', authMiddleware, userController.showAllBlocks);
 
 routes.post('/posts', authMiddleware, postController.create);
+routes.get('/posts/:id', authMiddleware, postController.show);
 routes.delete('/posts/:id', authMiddleware, postController.delete);
 routes.put('/posts/:id', authMiddleware, postController.update);
 routes.get('/my-posts/:id', authMiddleware, postController.showMyPosts);
