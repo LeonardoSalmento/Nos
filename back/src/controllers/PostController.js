@@ -43,6 +43,34 @@ class PostController{
     }
 
 
+    async update(req, res) {
+        const { id } = req.params;
+        const {
+            text,
+            picture
+        } = req.body;
+ 
+        const post = await Post.findById(id);
+
+        if(!post){
+            return res.status(404).json({error: "Post not found!"})
+        }
+
+        const updated = Date.now();
+        
+        const postUpdated = await Post.updateOne(
+          { _id: id },
+          {
+            text,
+            picture,
+            updated
+          }
+        );
+    
+        return res.send(postUpdated);
+      }
+
+
     async showMyPosts(req, res){
         try {
             const { id } = req.params;
