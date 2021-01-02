@@ -1,12 +1,14 @@
 import { Router } from 'express';
 import UserController from './controllers/UserController';
 import AuthController from './controllers/AuthController';
+import PostController from './controllers/PostController';
 import authMiddleware from './middlewares/authMiddleware';
 
 const routes = Router();
 
 const userController = new UserController();
 const authController = new AuthController();
+const postController = new PostController();
 
 routes.post('/auth', authController.authenticate);
 
@@ -27,5 +29,8 @@ routes.get('/show-friends/:id', authMiddleware, userController.showAllFriends);
 routes.post('/block/:ids', authMiddleware, userController.block);
 routes.post('/unblock/:ids', authMiddleware, userController.unblock);
 routes.get('/block/:id', authMiddleware, userController.showAllBlocks);
+
+routes.post('/posts', authMiddleware, postController.create);
+routes.get('/my-posts/:id', authMiddleware, postController.showMyPosts);
 
 export default routes;
