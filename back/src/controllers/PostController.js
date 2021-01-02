@@ -24,10 +24,21 @@ class PostController{
                 updated
             });
 
-            return res.json(post);
+            return res.status(201).json(post);
             
         } catch (error) {
             return res.status(400).json({ error: "Something is wrong, try again!" });
+        }
+    }
+
+    async delete(req, res){
+        try {
+            const { id } = req.params;
+
+            await Post.findByIdAndDelete(id);
+            return res.json({ message: 'Post deleted successfully' });
+        } catch (error) {
+            return res.status(400).json({ message: error });
         }
     }
 
@@ -44,7 +55,7 @@ class PostController{
 
             const posts = await Post.find({ owner: user });
 
-            return res.json(posts);
+            return res.status(200).json(posts);
 
         } catch (error) {
             return res.status(400).json({ error: "Something is wrong, try again!" });    

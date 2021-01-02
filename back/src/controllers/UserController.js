@@ -104,7 +104,7 @@ class UserController {
 
         try{
             await User.findByIdAndDelete(id);
-            return res.json({ message: 'User exclude successful' });
+            return res.json({ message: 'User deleted successfully' });
 
         }catch(err){
             return res.status(400).json({ message: err });
